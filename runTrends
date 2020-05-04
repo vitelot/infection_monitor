@@ -1,0 +1,16 @@
+#!/bin/tcsh
+Rscript trends.r month
+Rscript trends.r week
+Rscript trends.r day
+
+set d=`date '+%Y-%m-%d'`
+#echo $d
+
+foreach a ($d*.csv)
+  perl csv2dat.pl < "$a" > "$a:r.dat"
+end
+
+sed -i "" 's/ title ".*"/ title "'$d'"/' par.par
+xmgrace -free -geometry 1000x750 -hdevice PNG -hardcopy -printfile $d.png -param par.par -autoscale none *7-d.dat
+
+zip -m $d.zip $d*.csv $d*.dat
