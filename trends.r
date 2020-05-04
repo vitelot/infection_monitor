@@ -5,7 +5,7 @@ print(args)
 time_lapse <- switch(args[1], "month"="today 1-m", "week"="now 7-d", "day"="now 1-d", "")
 
 if(time_lapse=="") {
-  stop("Please provide a time lapse [month, week]")
+  stop("Please provide a time lapse [month, week, day]")
 }
 
 time = Sys.Date()
